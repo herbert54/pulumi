@@ -1,0 +1,3 @@
+name: crear-credenciales
+runtime: python
+description: Crea el archivo ~/.aws/credentials desde Pulumi

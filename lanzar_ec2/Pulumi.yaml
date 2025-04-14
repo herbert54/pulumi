@@ -1,0 +1,3 @@
+name: lanzar-ec2
+runtime: python
+description: Lanza una instancia EC2 usando Pulumi
