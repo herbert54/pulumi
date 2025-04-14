@@ -1,9 +1,9 @@
 import pulumi
 import pulumi_aws as aws
 
-# Leer configuración
+# Leer configuracion
 config = pulumi.Config()
-ami_id = config.get("ami_id") or "ami-0fc5d935ebf8bc3bc"  # Ubuntu 22.04
+ami_id = config.get("ami_id")
 key_name = config.get("key_name") or "vockey"
 
 #Grupo de seguridad
@@ -19,14 +19,11 @@ sg = aws.ec2.SecurityGroup("vm-sg",
 )
 
 #Disco de 20 GB
-ebs_block = {
-    "device_name": "/dev/xvda",
-    "ebs": {
-        "volume_size": 20,
-        "delete_on_termination": True,
-        "volume_type": "gp2",
-    }
-}
+ebs_block = aws.ec2.InstanceRootBlockDeviceArgs(
+    volume_size=20,
+    volume_type="gp2",
+    delete_on_termination=True,
+)
 
 #Instancia EC2
 instance = aws.ec2.Instance("vm-cloud",
